@@ -16,14 +16,21 @@ class HomePage extends StatelessWidget {
         height: _deviceHeight,
         width: _deviceWidth,
         padding: EdgeInsets.symmetric(horizontal: _deviceWidth * 0.05),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          mainAxisSize: MainAxisSize.max,
-          crossAxisAlignment: CrossAxisAlignment.start,
+        child: Stack(
           children: [
-            _pageTitle(),
-            _destinationDropdownWidget(),
-            _travellersInformationWidget(),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisSize: MainAxisSize.max,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                _pageTitle(),
+                _bookRideWidget(),
+              ],
+            ),
+            Align(
+              alignment: Alignment.centerRight,
+              child: _astroImageWidget(),
+            ),
           ],
         ),
       )),
@@ -43,11 +50,29 @@ class HomePage extends StatelessWidget {
 
   Widget _astroImageWidget() {
     return Container(
+      height: _deviceHeight * 0.50,
+      width: _deviceWidth * 0.65,
       decoration: const BoxDecoration(
           image: DecorationImage(
         fit: BoxFit.fill,
         image: AssetImage("assets/images/astro_moon.png"),
       )),
+    );
+  }
+
+  Widget _bookRideWidget() {
+    return Container(
+      height: _deviceHeight * 0.25,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        mainAxisSize: MainAxisSize.max,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          _destinationDropdownWidget(),
+          _travellersInformationWidget(),
+          _rideButton(),
+        ],
+      ),
     );
   }
 
@@ -59,9 +84,37 @@ class HomePage extends StatelessWidget {
   }
 
   Widget _travellersInformationWidget() {
-    return CustomDropdownButtonClass(
-      values: const ['1', '2', '3', '4'],
-      width: _deviceWidth * 0.45,
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      mainAxisSize: MainAxisSize.max,
+      children: [
+        CustomDropdownButtonClass(
+          values: const ['1', '2', '3', '4'],
+          width: _deviceWidth * 0.45,
+        ),
+        CustomDropdownButtonClass(
+          values: const ['Economy', 'Business', 'First', 'Private'],
+          width: _deviceWidth * 0.40,
+        ),
+      ],
+    );
+  }
+
+  Widget _rideButton() {
+    return Container(
+      margin: EdgeInsets.only(
+        bottom: _deviceHeight * 0.01,
+      ),
+      decoration: BoxDecoration(
+          color: Colors.white, borderRadius: BorderRadius.circular(10)),
+      width: _deviceHeight,
+      child: MaterialButton(
+        onPressed: () {},
+        child: const Text(
+          "Book Ride!",
+          style: TextStyle(color: Colors.black),
+        ),
+      ),
     );
   }
 }
