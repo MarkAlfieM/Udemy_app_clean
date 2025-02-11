@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:udemy_clean_flutter/widgets/custom_dropdown_button.dart';
 
 class HomePage extends StatelessWidget {
   late double _deviceHeight, _deviceWidth;
@@ -15,7 +16,16 @@ class HomePage extends StatelessWidget {
         height: _deviceHeight,
         width: _deviceWidth,
         padding: EdgeInsets.symmetric(horizontal: _deviceWidth * 0.05),
-        child: _destinationDropdownWidget(),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisSize: MainAxisSize.max,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            _pageTitle(),
+            _destinationDropdownWidget(),
+            _travellersInformationWidget(),
+          ],
+        ),
       )),
     );
   }
@@ -42,22 +52,16 @@ class HomePage extends StatelessWidget {
   }
 
   Widget _destinationDropdownWidget() {
-    List<DropdownMenuItem<String>> _items = [
+    return CustomDropdownButtonClass(values: const [
       'James Webb Station',
       'Prenuere Station',
-    ].map(
-      (e) {
-        return DropdownMenuItem(
-          child: Text(e),
-          value: e,
-        );
-      },
-    ).toList();
-    return Container(
-      child: DropdownButton(
-        onChanged: (_) {},
-        items: _items,
-      ),
+    ], width: _deviceWidth);
+  }
+
+  Widget _travellersInformationWidget() {
+    return CustomDropdownButtonClass(
+      values: const ['1', '2', '3', '4'],
+      width: _deviceWidth * 0.45,
     );
   }
 }
